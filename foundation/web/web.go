@@ -65,7 +65,7 @@ func (a *App) Handle(method string, path string, handler Handler, mw ...Middlewa
 			Now:     time.Now().UTC(),
 		}
 		ctx := context.WithValue(r.Context(), KeyValues, &v)
-
+		w.Header().Set("X-Traceid", v.TraceID)
 		if err := handler(ctx, w, r); err != nil {
 			// ??????????
 			return
